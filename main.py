@@ -2,11 +2,15 @@ import requests
 import os
 import pandas as pd
 import json
+import matplotlib
+matplotlib.use("TkAgg")  # Use TkAgg backend for matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 from numpy.polynomial import Polynomial
+from dotenv import load_dotenv
 
+load_dotenv()
 url = "https://api.aviationstack.com/v1/timetable"
 params = {
     "access_key": os.getenv("AVIATIONSTACK_API_KEY"),
@@ -17,6 +21,7 @@ params = {
 response = requests.get("https://api.aviationstack.com/v1/timetable", params=params)
 response.raise_for_status()
 response = response.json()
+json.dump(response, open("response.json", "w"), indent=4)
 
 # response = json.load(open("response.json"))
 
